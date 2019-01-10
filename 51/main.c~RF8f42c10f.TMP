@@ -1,0 +1,50 @@
+#include "reg52.h"
+sbit lcd_en=P3^4;
+sbit lcd_rs=P3^4;
+sbit du=P3^4;
+sbit we=P2^7;
+unsigned char table[]="you did it";
+void delay(unsigned int  z)
+{
+	unsigned int x,y;
+	for(x=z;x>0;x--)
+		for(y=110;y>0;y--);
+}
+void write_com(unsigned char com)
+{
+	lcd_rs=0;
+	P0=com;
+	delay(5);
+	lcd_en=1;
+	delay(5);
+	lcd_en=0;
+}
+//void write_data(unsigned char data)
+//{
+//	lcd_rs=1;
+//	P0=data;
+//	delay(5);
+//	lcd_en=1;
+//	delay(5);
+//	lcd_en=0;
+//}
+void lcd_init()
+{
+	du=0;
+	we=0;
+	lcd_en=0;
+	write_com(0x38);
+	write_com(0x0e);
+	write_com(0x06);
+	write_com(0x01);
+	write_com(0x80+0x10);
+}
+int main(void)
+{
+	int num=0;
+	lcd_init();
+	for(num=0;num<8;num++)
+	
+	while(1);
+	return 0;
+}

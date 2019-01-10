@@ -1,0 +1,40 @@
+C51 COMPILER V9.01   MAIN                                                                  01/11/2019 00:25:26 PAGE 1   
+
+
+C51 COMPILER V9.01, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\main.obj
+COMPILER INVOKED BY: E:\MDK\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\main.lst
+                    -) TABS(2) OBJECT(.\Objects\main.obj)
+
+line level    source
+
+   1          #include "reg52.h"
+   2          #include "my1602.h"
+   3          #include "delay.h"
+   4          unsigned char code table[]="1234567890";
+   5          void main()
+   6          {
+   7   1        int num;
+   8   1        init();
+   9   1        write_com(0x80);
+  10   1        for(num=0;num<5;num++)
+  11   1        {
+  12   2          write_data(table[num]);
+  13   2          delay(5);
+  14   2        }
+  15   1        while(1);
+  16   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    130    ----
+   CONSTANT SIZE    =     11    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

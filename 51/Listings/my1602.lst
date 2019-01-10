@@ -1,0 +1,24 @@
+C51 COMPILER V9.01   MY1602                                                                01/10/2019 22:21:55 PAGE 1   
+
+
+C51 COMPILER V9.01, COMPILATION OF MODULE MY1602
+OBJECT MODULE PLACED IN .\Objects\my1602.obj
+COMPILER INVOKED BY: E:\MDK\C51\BIN\C51.EXE my1602.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\my1602
+                    -.lst) TABS(2) OBJECT(.\Objects\my1602.obj)
+
+line level    source
+
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   ----    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
