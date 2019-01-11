@@ -1,16 +1,23 @@
 #include "reg52.h"
 #include "my1602.h"
 #include "delay.h"
+#include "key.h"
+#include "stdio.h"
+//#include "usart.h"
 unsigned char code table[]="1234567890";
 void main()
 {
-	int num;
+	int num=0;
 	init();
 	write_com(0x80);
-	for(num=0;num<5;num++)
-	{
-		write_data(table[num]);
-		delay(5);
+	write_data('!');
+	while(1){
+		num=keyscan();
+		if(num!='!'){
+			init();
+			write_data(num);
+			//num++;
+			delay(5000);
+		}			
 	}
-	while(1);
 }

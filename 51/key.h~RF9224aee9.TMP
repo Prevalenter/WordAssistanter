@@ -1,0 +1,38 @@
+#ifndef _KEY_H_
+#define _KEY_H_
+#include "delay.h"
+unsigned char keyscan(void){
+	signed char key_val,temp;
+	P1=0xfe;
+	temp=P3
+	temp=temp&0xf0;
+						switch(temp){
+						case 0xee:return '1';
+						case 0xde:return '2';
+						case 0xbe:return '3';
+						case 0x7e:return '4';
+					}
+	//if the key is down
+//	while(temp!=0xf0){
+//			delay(5);
+//			temp=P3;
+//			temp=temp&0xf0;
+//			while(temp!=0xf0){
+//					temp=P3;
+//					switch(temp){
+//						case 0xee:return '1';
+//						case 0xde:return '2';
+//						case 0xbe:return '3';
+//						case 0x7e:return '4';
+//					}
+//					//wait the key is up
+//					while(temp!=0xf0){
+//						temp=P3;
+//						temp=temp&f0;
+//					}
+//			}
+//	}
+	
+
+}
+#endif

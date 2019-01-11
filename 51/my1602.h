@@ -2,31 +2,31 @@
 #define _MY1602_H_
 #include "delay.h"
 sbit lcd_en=P3^4;
-sbit lcd_en=P3^5;
+sbit lcd_rs=P3^5;
 sbit dula=P2^6;
 sbit wela=P2^7;
-#write com
+//write com
 void write_com(unsigned char com)
 {
-	lcd_en=0;
+	lcd_rs=0;
 	P0=com;
 	delay(5);
 	lcd_en=1;
 	delay(5);
 	lcd_en=0;
 }
-#write the date to 1602
-#date is the string you want  write into 1602
+//write the date to 1602
+//date is the string you want  write into 1602
 void write_data(unsigned char date)
 {
-	lcd_en=1;
+	lcd_rs=1;
 	P0=date;
 	delay(5);
 	lcd_en=1;
 	delay(5);
 	lcd_en=0;
 }
-#the init of lcd1602
+//the init of lcd1602
 void init(void)
 {
 	dula=0;
