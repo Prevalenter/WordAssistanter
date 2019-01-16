@@ -1,0 +1,121 @@
+#ifndef _IIC_H_
+#define _IIC_H_
+sbit sda=P2^0;
+sbit scl=P2^1;
+//uchar a;
+void delay_iic()
+{
+	;;
+}
+void start() 
+{ 
+	sda=1; 
+	delay_iic(); 
+	scl=1; 
+	delay_iic(); 
+	sda=0; 
+	delay_iic(); 
+} 
+void stop() 
+{ 
+	sda=0; 
+	delay_iic(); 
+	scl=1; 
+	delay_iic(); 
+	sda=1; 
+	delay_iic(); 
+} 
+void respons() 
+{ 
+	unsigned char i; 
+	scl=1; 
+	delay_iic(); 
+	while((sda==1)&&(i<250))i++; 
+	scl=0; 
+	delay_iic(); 
+} 
+void iic_init() 
+{ 
+	sda=1; 
+	delay_iic(); 
+	scl=1; 
+	delay_iic(); 
+} 
+void write_byte(unsigned char date) 
+{ 
+	unsigned char i,temp; 
+	temp=date; 
+	for(i=0;i<8;i++) 
+	{ 
+		temp=temp<<1; 
+		scl=0; 
+		delay_iic(); 
+		sda=CY; 
+		delay_iic(); 
+		scl=1; 
+		delay_iic(); 
+		// scl=0; 
+		// delay_iic(); 
+	} 
+	scl=0; 
+	delay_iic(); 
+	sda=1; 
+	delay_iic(); 
+} 
+unsigned char read_byte() 
+{ 
+	unsigned char i,k; 
+	scl=0; 
+	delay_iic(); 
+	sda=1; 
+	delay_iic(); 
+ 
+	for(i=0;i<8;i++) 
+	{ 
+	scl=1; 
+	delay_iic(); 
+	k=(k<<1)|sda; 
+	scl=0; 
+	delay_iic(); 
+	} 
+	return k; 
+} 
+void delay_iic1(unsigned int x)
+{ 
+	unsigned int a,b; 
+	for(a=x;a>0;a--) 
+	for(b=100;b>0;b--); 
+} 
+void write_add(unsigned char reg,unsigned char address1,unsigned char date1)
+{ 
+	start(); 
+	write_byte(reg);
+	respons(); 
+	write_byte(address1); 
+	respons(); 
+	write_byte(date1); 
+	respons(); 
+	stop(); 
+} 
+unsigned char read_add(int reg,unsigned char address1)
+{ 
+	unsigned char date; 
+	start(); 
+	write_byte(reg); 
+	respons(); 
+	write_byte(address1); 
+	respons(); 
+	start(); 
+	write_byte(reg+1); 
+	respons(); 
+	date=read_byte(); 
+	stop(); 
+	return date; 
+} 
+void iic_test(void){
+	iic_init();
+	write_add(0xa0,23,0xaa);
+	P1=read_add(0xa0,23);
+	while(1);
+}
+#endif

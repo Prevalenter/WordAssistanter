@@ -1,0 +1,121 @@
+#include<reg52.h>
+#define uchar unsigned char
+sbit sda=P2^0;
+sbit scl=P2^1;
+uchar a;
+void delay()
+{ ;; }
+void start()  //????
+{	
+	sda=1;
+	delay();
+	scl=1;
+	delay();
+	sda=0;
+	delay();
+}
+
+void stop()   //??
+{
+	sda=0;
+	delay();
+	scl=1;
+	delay();
+	sda=1;
+	delay();
+}
+
+void respons()  //??
+{
+	uchar i;
+	scl=1;
+	delay();
+	while((sda==1)&&(i<250))i++;
+	scl=0;
+	delay();
+}
+
+void init()
+{
+	sda=1;
+	delay();
+	scl=1;
+	delay();
+}
+
+void write_byte(uchar date)
+{
+	uchar i,temp;
+	temp=date;
+
+
+	for(i=0;i<8;i++)
+	{
+		temp=temp<<1;
+		scl=0;
+	    delay();
+		sda=CY;
+		delay();
+		scl=1;
+		delay();
+	//	scl=0;
+     //   delay();
+	}
+	scl=0;
+	delay();
+	sda=1;
+	delay();
+}
+
+uchar read_byte()
+{
+	uchar i,k;
+	scl=0;
+	delay();
+	sda=1;
+	delay();
+	for(i=0;i<8;i++)
+	{
+		scl=1;
+		delay();	
+		k=(k<<1)|sda;
+		scl=0;
+		delay();	
+	}
+	return k;
+}
+
+void delay1(uchar x)
+{
+	uchar a,b;
+	for(a=x;a>0;a--)
+	 for(b=100;b>0;b--);
+}
+
+void write_add(uchar reg,uchar address,uchar date)
+{
+	start();
+	write_byte(reg);
+	respons();
+	write_byte(address);
+	respons();
+	write_byte(date);
+	respons();
+	stop();
+}
+
+uchar read_add(uchar reg,uchar address)
+{
+	uchar date;
+	start();
+	write_byte(reg);
+	respons();
+	write_byte(address);
+	respons();
+	start();
+	write_byte(reg+1);
+	respons();
+	date=read_byte();
+	stop();
+	return date;
+}

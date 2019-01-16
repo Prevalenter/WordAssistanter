@@ -1,4 +1,4 @@
-C51 COMPILER V9.01   MAIN                                                                  01/11/2019 12:54:24 PAGE 1   
+C51 COMPILER V9.01   MAIN                                                                  01/16/2019 14:21:09 PAGE 1   
 
 
 C51 COMPILER V9.01, COMPILATION OF MODULE MAIN
@@ -13,38 +13,41 @@ line level    source
    3          #include "delay.h"
    4          #include "key.h"
    5          #include "stdio.h"
-   6          //#include "usart.h"
-   7          unsigned char code table[]="1234567890";
-   8          void main()
-   9          {
-  10   1        int num=0;
-  11   1        init();
-  12   1      //  Uart1Init();
-  13   1        write_com(0x80);
-  14   1      //  for(num=0;num<5;num++)
-  15   1      //  {
-  16   1      //    write_data(table[num]);
-  17   1      //    delay(1000);
-  18   1      //  }
-  19   1        write_data('!');
-  20   1        while(1){
-  21   2          num=keyscan();
-  22   2          if(num!='!'){
-  23   3            init();
-  24   3            write_data(num);
-  25   3            //num++;
-  26   3            delay(5000);
-  27   3          }     
-  28   2        }
-  29   1      }
+   6          #include "usart.h"
+   7          #include "iic.h"
+   8          unsigned char code table[]="1234567890";
+   9          void main()
+  10          {
+  11   1        unsigned char a;
+  12   1        lcd_init();
+  13   1        iic_init();
+  14   1        delay_iic1(100);
+  15   1        write_add(0xa0,23,1);
+  16   1        delay_iic1(100);
+  17   1        a=read_add(0xa0,23);
+  18   1        P1=a;
+  19   1        write_in_position(1,3,a+48);
+  20   1        while(1);
+  21   1      //  int num=0;
+  22   1      //  lcd_init();
+  23   1      //  iic_init();
+  24   1      //  write_add(0xa0,23,1);
+  25   1      //  write_in_position(1,3,read_add(0xa0,23)+48);
+  26   1      //  while(1){
+  27   1      //    num=keyscan();
+  28   1      //    if(num!='!'){
+  29   1      //      write_in_position(1,3,num);
+  30   1      //    }     
+  31   1      //  }
+  32   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    267    ----
-   CONSTANT SIZE    =     11    ----
+   CODE SIZE        =    677    ----
+   CONSTANT SIZE    =     15    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =   ----    ----
+   DATA SIZE        =     22       1
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.
